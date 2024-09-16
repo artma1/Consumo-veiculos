@@ -16,6 +16,7 @@ namespace Consumo_veiculos.Models
         [Display(Name = "Ano de Fabricação")]
         public int AnoFabricacao { get; set; }
         [Required(ErrorMessage = "Obrigatório informar o ano do modelo!")]
+        [Display(Name = "Ano do Modelo")]
         public int AnoModelo { get; set; }
     }
 }
