@@ -36,5 +36,89 @@ namespace Consumo_veiculos.Controllers
 
             return View();
         }
+        
+        public async Task<IActionResult> Edit(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            
+            var dados = await _context.Veiculos.FindAsync(Id);
+            if (dados == null)
+            {
+                return BadRequest();
+            }
+            return View(dados);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int? Id, Veiculo veiculo)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Veiculos.Update(veiculo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            } else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage); // ou logue esses erros para análise
+                }
+            }
+            return View();
+        }
+        public async Task<IActionResult> Details(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var dados = await _context.Veiculos.FindAsync(Id);
+            if (dados == null)
+            {
+                return BadRequest();
+            }
+            return View(dados);
+        }
+        public async Task<IActionResult> Delete(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var dados = await _context.Veiculos.FindAsync(Id);
+            if (dados == null)
+            {
+                return BadRequest();
+            }
+            return View(dados);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var dados = await _context.Veiculos.FindAsync(Id);
+            if (dados == null)
+            {
+                return NotFound();
+            }
+
+            _context.Veiculos.Remove(dados);
+            await _context.SaveChangesAsync();
+            
+            return RedirectToAction("Index"); ;
+        }
     }
 }
