@@ -1,9 +1,11 @@
 ﻿using Consumo_veiculos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Consumo_veiculos.Controllers
 {
+    
     public class VeiculosController : Controller
     {
         private readonly AppDbContext _context;

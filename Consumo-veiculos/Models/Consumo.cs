@@ -21,7 +21,7 @@ namespace Consumo_veiculos.Models
         [Required(ErrorMessage = "Informe o veículo")]
         public int VeiculoId { get; set; }
         [ForeignKey("VeiculoId")]
-        public Veiculo? Veiculo { get; set; }
+        public Veiculo Veiculo { get; set; }
     }
     public enum TipoCombustivel
     {

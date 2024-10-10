@@ -9,9 +9,9 @@ namespace Consumo_veiculos.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Obrigatório informar o nome!")]
-        public string? Nome { get; set; }
+        public string Nome { get; set; }
         [Required(ErrorMessage = "Obrigatório informar a placa!")]
-        public string? Placa { get; set; }
+        public string Placa { get; set; }
         [Required(ErrorMessage = "Obrigatório informar o ano de fabricação!")]
         [Display(Name = "Ano de Fabricação")]
         public int AnoFabricacao { get; set; }
