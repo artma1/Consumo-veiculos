@@ -26,6 +26,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Consumos">Consumos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios">Usuários</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav" ">
+                    @if (User?.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                            <li class="nav-item">
+                                Olá @User.Identity.Name  <a class="nav-link text-dark" href="@Url.Action("Logout", "Usuarios")">Sair</a>
+                            </li>
+                    }
+                    else
+                    {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Login", "Usuarios")">Login</a>
+                            </li>
+                    }
                     </ul>
                 </div>
             </div>
@@ -33,7 +50,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+                    @RenderBody()
         </main>
     </div>
 
@@ -45,6 +62,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+                @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
