@@ -43,11 +43,11 @@ namespace Consumo_veiculos.Controllers
             return RedirectToAction("Login", "Usuarios");
         }
         [AllowAnonymous]
-        public IActionResult AcessDenied()
+        public IActionResult AccessDenied()
         {
             return View();
         }
-
+    
         [AllowAnonymous]
         public async Task<IActionResult> Login(Usuario usuario)
         {
