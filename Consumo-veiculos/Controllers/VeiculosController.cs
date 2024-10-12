@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consumo_veiculos.Controllers
 {
-    
+    [Authorize]
     public class VeiculosController : Controller
     {
         private readonly AppDbContext _context;

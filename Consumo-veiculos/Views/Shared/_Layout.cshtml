@@ -10,6 +10,16 @@
 </head>
 <body>
     <header>
+        <style>
+                    /* Definindo o estilo da página */
+                    body {
+                background-image: url('https://raw.githubusercontent.com/artma1/Consumo-veiculos/refs/heads/develop/Consumo-veiculos/wwwroot/images/3.png'); /* Caminho para a imagem */
+                        background-size: cover; /* Faz a imagem cobrir toda a área */
+                        background-position: center; /* Centraliza a imagem */
+                        background-repeat: no-repeat; /* Impede que a imagem se repita */
+                        height: 100vh; /* Define a altura da página como 100% da altura da janela */
+                    }
+        </style>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Controle de Veículos</a>
@@ -21,13 +31,13 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Veiculos">Veículos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Veiculos" asp-action="Index">Veículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Consumos">Consumos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Consumos" asp-action="Index">Consumos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios">Usuários</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuários</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav" ">
@@ -56,7 +66,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Veículos - Criado por <a href="https://www.linkedin.com/in/artur-maciel/">Artur</a>
+            <strong>&copy; 2024 - Controle de Veículos - Criado por <a href="https://www.linkedin.com/in/artur-maciel/">Artur</a> </strong>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
