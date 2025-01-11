@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Controle de Veículos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Consumo_veiculos.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <style>
+                    /* Definindo o estilo da página */
+                    body {
+                background-image: url('https://raw.githubusercontent.com/artma1/Consumo-veiculos/refs/heads/develop/Consumo-veiculos/wwwroot/images/3.png'); /* Caminho para a imagem */
+                        background-size: cover; /* Faz a imagem cobrir toda a área */
+                        background-position: center; /* Centraliza a imagem */
+                        background-repeat: no-repeat; /* Impede que a imagem se repita */
+                        height: 100vh; /* Define a altura da página como 100% da altura da janela */
+                    }
+        </style>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Controle de Veículos</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Veiculos" asp-action="Index">Veículos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Consumos" asp-action="Index">Consumos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuários</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav" ">
+                    @if (User?.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                            <li class="nav-item">
+                                Olá @User.Identity.Name  <a class="nav-link text-dark" href="@Url.Action("Logout", "Usuarios")">Sair</a>
+                            </li>
+                    }
+                    else
+                    {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Login", "Usuarios")">Login</a>
+                            </li>
+                    }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+                    @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <strong>&copy; 2024 - Controle de Veículos - Criado por <a href="https://www.linkedin.com/in/artur-maciel/">Artur</a> </strong>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+                @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
