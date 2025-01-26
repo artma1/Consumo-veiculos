@@ -18,7 +18,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+
+    justify-content: center; /* Alinha horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    height: 100vh; /* Ocupa toda a altura da janela */
+    margin: 0; /* Remove margens padrões */
 }
 
 
@@ -28,6 +32,15 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
+    max-width: 900px;
     margin: 20px auto;
+}
+
+#footer {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com 80% de transparência */
+    width: 100%;
+    padding: 10px;
+    bottom: 0; /* Fixando o footer na parte inferior */
+    text-align: center;
 }

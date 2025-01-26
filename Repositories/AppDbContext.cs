@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Consumo_veiculos.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Consumo_veiculos.Models
+namespace Consumo_veiculos.Repositories
 {
     public class AppDbContext : DbContext
     {

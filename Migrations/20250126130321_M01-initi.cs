@@ -6,18 +6,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Consumo_veiculos.Migrations
 {
     /// <inheritdoc />
-    public partial class M04addTableConsumo : Migration
+    public partial class M01initi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "Veiculos",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Perfil = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Veiculos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Placa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnoFabricacao = table.Column<int>(type: "int", nullable: false),
+                    AnoModelo = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Veiculos", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Consumos",
@@ -25,7 +48,7 @@ namespace Consumo_veiculos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Km = table.Column<int>(type: "int", nullable: false),
@@ -55,13 +78,11 @@ namespace Consumo_veiculos.Migrations
             migrationBuilder.DropTable(
                 name: "Consumos");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Nome",
-                table: "Veiculos",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+            migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Veiculos");
         }
     }
 }
