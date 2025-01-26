@@ -44,3 +44,12 @@ body {
     bottom: 0; /* Fixando o footer na parte inferior */
     text-align: center;
 }
+body.page-login .container { /* Ajusta o espaço em cima da página */
+    padding-bottom: 20px; /* Ajusta o espaço na parte inferior */
+    max-width: 400px;
+}
+.form-group-login {
+    width: 300px;
+    position: center;
+    padding: 5px;
+}

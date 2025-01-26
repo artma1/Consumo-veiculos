@@ -35,7 +35,7 @@ namespace Consumo_veiculos.Controllers
             {
                 return NotFound();
             }
-
+            
             var consumo = await _context.Consumos
                 .Include(c => c.Veiculo)
                 .FirstOrDefaultAsync(m => m.Id == id);
