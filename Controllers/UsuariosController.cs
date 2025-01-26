@@ -10,24 +10,31 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Consumo_veiculos.ViewModels;
+using AutoMapper;
+using Consumo_veiculos.Repositories;
 
 namespace Consumo_veiculos.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UsuariosController(AppDbContext context)
+        public UsuariosController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Usuarios
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            var users = await _context.Usuarios.ToListAsync();
+            var model = _mapper.Map<List<UsuarioViewModel>>(users);
+            return View(model);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -119,7 +126,7 @@ namespace Consumo_veiculos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Senha,Perfil")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Senha,Perfil")] UsuarioViewModel usuario)
         {
             if (ModelState.IsValid)
             {
@@ -153,7 +160,7 @@ namespace Consumo_veiculos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Senha,Perfil")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Senha,Perfil")] UsuarioViewModel usuario)
         {
             if (id != usuario.Id)
             {

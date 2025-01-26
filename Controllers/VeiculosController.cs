@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Consumo_veiculos.ViewModels;
+using AutoMapper;
+using Consumo_veiculos.Repositories;
 
 namespace Consumo_veiculos.Controllers
 {
@@ -9,17 +12,19 @@ namespace Consumo_veiculos.Controllers
     public class VeiculosController : Controller
     {
         private readonly AppDbContext _context;
-        public VeiculosController(AppDbContext context)
+        private readonly IMapper _mapper;
+        public VeiculosController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         //Padrão de uam requisição http (async etc)
         public async Task<IActionResult> Index()
         {
-            var dados = await _context.Veiculos.ToListAsync();
-
-            return View(dados);
+            var vehicles = await _context.Veiculos.ToListAsync();
+            var model = _mapper.Map<List<VeiculoViewModel>>(vehicles);
+            return View(model);
         }
         //[HttpGet] é o padrão se não escrevo nada
         public IActionResult Create()
@@ -27,11 +32,14 @@ namespace Consumo_veiculos.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Veiculo veiculo)
+        public async Task<IActionResult> Create(VeiculoViewModel veiculo)
         {
             if (ModelState.IsValid)
             {
-                _context.Veiculos.Add(veiculo);
+                var veiculoToCreate = new Veiculo();
+
+                _mapper.Map(veiculo, veiculoToCreate);
+                _context.Veiculos.Add(veiculoToCreate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -54,15 +62,20 @@ namespace Consumo_veiculos.Controllers
             return View(dados);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int? Id, Veiculo veiculo)
+        public async Task<IActionResult> Edit(int? Id, VeiculoViewModel veiculo)
         {
             if (Id == null)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
-                _context.Veiculos.Update(veiculo);
+
+                var veiculoToUpdate = await _context.Veiculos.FindAsync(Id);
+                _mapper.Map(veiculo, veiculoToUpdate);
+
+                _context.Veiculos.Update(veiculoToUpdate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             } else

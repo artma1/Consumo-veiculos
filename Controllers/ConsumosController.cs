@@ -1,30 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Consumo_veiculos.Models;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using Consumo_veiculos.ViewModels;
+using Consumo_veiculos.Repositories;
 
 namespace Consumo_veiculos.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ConsumosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ConsumosController(AppDbContext context)
+        public ConsumosController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Consumos
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Consumos.Include(c => c.Veiculo);
-            return View(await appDbContext.ToListAsync());
+            var consumo = await _context.Consumos.Include(c => c.Veiculo).ToListAsync();
+            var model = _mapper.Map<List<ConsumoViewModel>>(consumo);
+            return View(model);
         }
 
         // GET: Consumos/Details/5
@@ -58,7 +59,7 @@ namespace Consumo_veiculos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Data,Valor,Km,Tipo,VeiculoId")] Consumo consumo)
+        public async Task<IActionResult> Create([Bind("Id,Descricao,Data,Valor,Km,Tipo,VeiculoId")] ConsumoViewModel consumo)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +93,7 @@ namespace Consumo_veiculos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Data,Valor,Km,Tipo,VeiculoId")] Consumo consumo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Data,Valor,Km,Tipo,VeiculoId")] ConsumoViewModel consumo)
         {
             if (id != consumo.Id)
             {
